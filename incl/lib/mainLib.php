@@ -309,10 +309,13 @@ class mainLib {
 				$query->execute([':id' => $levelID]);
 				if ($query->rowCount() > 0) {
 					$status = 3;
-				} else {
-					$status = 0;
 				}
 			}
+		}
+		$query = $db->prepare("SELECT * FROM levels WHERE levelID = :id AND starEpic = 0 AND starFeatured = 0 AND starStars = 0");
+		$query->execute([':id' => $levelID]);
+		if ($query->rowCount() > 0) {
+			$status = 0;
 		}
 		return $status;
 	}
