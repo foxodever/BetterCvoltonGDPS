@@ -15,7 +15,7 @@ if(!empty($tk)) {
         $acc = $query->fetchColumn();
         $query = $db->prepare("UPDATE accounts SET password = :password WHERE accountID = :accID");
         $query->execute([':accID' => $acc, ':password' => $pass]);
-        $query = $db->prepare("DELETE FROM register WHERE token = :tk");
+        $query = $db->prepare("DELETE FROM reset WHERE token = :tk");
         $query->execute([':tk' => $tk]);
         echo "1";
     } else {
