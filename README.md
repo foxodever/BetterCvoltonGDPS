@@ -10,6 +10,8 @@ Required version of PHP: 5.4+ (tested up to 7.3.11)
 2) Password reseting if you forgot it
 3) Auto giving creator points
 4) Better timestamps
+5) Bot attack blocking
+6) Better cron
 
 ### Setup
 1) Upload the files on a webserver
