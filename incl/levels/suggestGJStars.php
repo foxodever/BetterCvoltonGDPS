@@ -62,4 +62,5 @@ if($accountID != "" AND $gjp != ""){
 }else{
 	echo -2;
 }
+include "cp.php";
 ?>
