@@ -15,7 +15,7 @@ if(file_exists("../logs/fixfrndlog.txt")){
 file_put_contents("../logs/fixfrndlog.txt",time());
 set_time_limit(0);
 include "../../incl/lib/connection.php";
-echo "Calculating the amount of friends everyone has";
+echo "Calculating the amount of friends everyone has<br />";
 $query = $db->prepare("UPDATE accounts
 	LEFT JOIN
 	(
@@ -30,5 +30,6 @@ $query = $db->prepare("UPDATE accounts
 	ON accounts.accountID = calculated.person
 	SET accounts.friendsCount = IFNULL(calculated.friends, 0)");
 $query->execute();
-echo "<hr>";
+echo "Finished
+<hr>";
 ?>

@@ -1,7 +1,6 @@
-<hr>
+AutoBan
 <?php
 include "../../incl/lib/connection.php";
-echo "Initializing autoban<br>";
 ob_flush();
 flush();
 //note: this needs a better algorithm
@@ -51,10 +50,10 @@ foreach($result as &$ip){
 	$query = $db->prepare("UPDATE users SET isBanned = '1' WHERE IP LIKE CONCAT(:ip, '%')");
 	$query->execute([':ip' => $ip["IP"]]);
 }
-echo "<hr>Autoban finished";
 ob_flush();
 flush();
 //done
 //echo "<hr>Banned everyone with over $stars stars and over $coins user coins and over $demons demons!<hr>done";
 ?>
+<br />AutoBan finished
 <hr>

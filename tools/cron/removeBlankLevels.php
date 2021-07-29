@@ -44,7 +44,7 @@ foreach($tables as &$table){
 	ob_flush();
 	flush();
 }*/
-echo "<hr>";
+echo "Finished<hr>";
 ob_flush();
 flush();
 ?>

@@ -1,4 +1,5 @@
-<?php
+<title>Cron</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/><?php
 chdir(dirname(__FILE__));
 set_time_limit(0);
 include "fixcps.php";
