@@ -1,5 +1,6 @@
 <?php
-include "../../incl/lib/connection.php";
+// DO NOT USE THIS RIGHT NOW
+/* include "../../incl/lib/connection.php";
 //note: this needs a better algorithm
 $query = $db->prepare("
 	SELECT 10+FLOOR(coins.coins*1.25) as coins, 3+FLOOR(levels.demons*1.0625) as demons, 200+FLOOR((levels.stars+gauntlets.stars+mappacks.stars)*1.25) as stars FROM
@@ -45,6 +46,7 @@ foreach($result as &$ip){
 	$query = $db->prepare("UPDATE users SET isBanned = '1' WHERE IP LIKE CONCAT(:ip, '%')");
 	$query->execute([':ip' => $ip["IP"]]);
 }
+*/
 //done
 //echo "<hr>Banned everyone with over $stars stars and over $coins user coins and over $demons demons!<hr>done";
 ?>
