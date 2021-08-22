@@ -1,52 +1,86 @@
 <?php
-// DO NOT USE THIS RIGHT NOW
-/* include "../../incl/lib/connection.php";
-//note: this needs a better algorithm
-$query = $db->prepare("
-	SELECT 10+FLOOR(coins.coins*1.25) as coins, 3+FLOOR(levels.demons*1.0625) as demons, 200+FLOOR((levels.stars+gauntlets.stars+mappacks.stars)*1.25) as stars FROM
-		(SELECT SUM(coins) as coins FROM levels WHERE starCoins <> 0) coins
-	JOIN
-		(SELECT SUM(starDemon) as demons, SUM(starStars) as stars FROM levels) levels
-	JOIN
-	(
-		SELECT (level1.stars + level2.stars + level3.stars + level4.stars + level5.stars) as stars FROM
-			(SELECT SUM(starStars) as stars FROM gauntlets
-			INNER JOIN levels on levels.levelID = gauntlets.level1) level1
-		JOIN
-			(SELECT SUM(starStars) as stars FROM gauntlets
-			INNER JOIN levels on levels.levelID = gauntlets.level2) level2
-		JOIN
-			(SELECT SUM(starStars) as stars FROM gauntlets
-			INNER JOIN levels on levels.levelID = gauntlets.level3) level3
-		JOIN
-			(SELECT SUM(starStars) as stars FROM gauntlets
-			INNER JOIN levels on levels.levelID = gauntlets.level4) level4
-		JOIN
-			(SELECT SUM(starStars) as stars FROM gauntlets
-			INNER JOIN levels on levels.levelID = gauntlets.level5) level5
-	) gauntlets
-	JOIN
-		(SELECT SUM(stars) as stars FROM mappacks) mappacks
-");
+include "../../incl/lib/connection.php";
+// default values
+$stars = 210;
+$coins = 63;
+$pc = 0;
+$demons = 3;
+
+$query = $db->prepare("SELECT COUNT(starDemon) FROM levels WHERE starDemon = 1");
 $query->execute();
-$levelstuff = $query->fetch();
-$stars = $levelstuff['stars']; $coins = $levelstuff['coins']; $demons = $levelstuff['demons']; 
-$query = $db->prepare("DELETE FROM users WHERE userName = '$userName' AND stars > :stars OR demons > :demons OR coins > :coins");
-$query->execute([':stars' => $stars, ':demons' => $demons, ':coins' => $coins]);
-$query = $db->prepare("DELETE FROM users WHERE userName = '$userName' AND stars > :stars OR demons > :demons OR coins > :coins");
-$query->execute([':stars' => $stars, ':demons' => $demons, ':coins' => $coins]);
-$result = $query->fetchAll();
-foreach($result as $user){
-}
-//banips
-$query = $db->prepare("SELECT IP FROM bannedips");
+$demons = $demons + $query->fetchColumn();
+
+$query = $db->prepare("SELECT * FROM dailyfeatures");
 $query->execute();
 $result = $query->fetchAll();
-foreach($result as &$ip){
-	$query = $db->prepare("UPDATE users SET isBanned = '1' WHERE IP LIKE CONCAT(:ip, '%')");
-	$query->execute([':ip' => $ip["IP"]]);
+foreach($result as $a){
+	$querys = $db->prepare("SELECT starStars FROM levels WHERE levelID = ".$a["levelID"]);
+	$querys->execute();
+	$stars = $stars + $querys->fetchColumn();
 }
-*/
-//done
-//echo "<hr>Banned everyone with over $stars stars and over $coins user coins and over $demons demons!<hr>done";
+$query = $db->prepare("SELECT SUM(stars) FROM mappacks");
+$query->execute();
+$stars = $stars + $query->fetchColumn();
+
+$query = $db->prepare("SELECT SUM(starStars) FROM levels");
+$query->execute();
+$stars = $stars + $query->fetchColumn();
+$query = $db->prepare("UPDATE users SET isBanned = 1 WHERE stars > $stars");
+$query->execute();
+
+$query = $db->prepare("SELECT SUM(coins) FROM mappacks");
+$query->execute();
+$coins = $coins + $query->fetchColumn();
+
+$query = $db->prepare("SELECT SUM(coins) FROM levels");
+$query->execute();
+$pc = $query->fetchColumn();
+
+$query = $db->prepare("SELECT * FROM gauntlets");
+$query->execute();
+$result = $query->fetchAll();
+foreach($result as $a){
+	$querys = $db->prepare("SELECT starStars FROM levels WHERE levelID = ".$a["level1"]);
+	$querys->execute();
+	$stars = $stars + $querys->fetchColumn();
+}
+
+$query = $db->prepare("SELECT * FROM gauntlets");
+$query->execute();
+$result = $query->fetchAll();
+foreach($result as $a){
+	$querys = $db->prepare("SELECT starStars FROM levels WHERE levelID = ".$a["level5"]);
+	$querys->execute();
+	$stars = $stars + $querys->fetchColumn();
+}
+
+$query = $db->prepare("SELECT * FROM gauntlets");
+$query->execute();
+$result = $query->fetchAll();
+foreach($result as $a){
+	$querys = $db->prepare("SELECT starStars FROM levels WHERE levelID = ".$a["level4"]);
+	$querys->execute();
+	$stars = $stars + $querys->fetchColumn();
+}
+
+$query = $db->prepare("SELECT * FROM gauntlets");
+$query->execute();
+$result = $query->fetchAll();
+foreach($result as $a){
+	$querys = $db->prepare("SELECT starStars FROM levels WHERE levelID = ".$a["level3"]);
+	$querys->execute();
+	$stars = $stars + $querys->fetchColumn();
+}
+
+$query = $db->prepare("SELECT * FROM gauntlets");
+$query->execute();
+$result = $query->fetchAll();
+foreach($result as $a){
+	$querys = $db->prepare("SELECT starStars FROM levels WHERE levelID = ".$a["level2"]);
+	$querys->execute();
+	$stars = $stars + $querys->fetchColumn();
+}
+
+$query = $db->prepare("UPDATE users SET isBanned = 1 WHERE stars > $stars OR demons > $demons OR coins > $coins OR userCoins > $pc");
+$query->execute();
 ?>
