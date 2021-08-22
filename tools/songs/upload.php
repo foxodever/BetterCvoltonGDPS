@@ -49,4 +49,6 @@ if(!in_array($file_type, $allowed)) {
               </p>
               <form method="post" action="upload.php" enctype='multipart/form-data'>
 Choose file: <input type='file' name='filename' size='10' />
+		      
+<input type="submit" value="Upload" />
 </form>
