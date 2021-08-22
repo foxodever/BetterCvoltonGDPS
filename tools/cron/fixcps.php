@@ -1,4 +1,3 @@
-Fix creatorPoints
 <?php
 error_reporting(E_ALL);
 include "../../incl/lib/connection.php";
@@ -30,5 +29,4 @@ set creatorPoints = (
 )");
 $query->execute();
 ?>
-<br />Fix creatorPoints finished
-<hr>
+1

@@ -4,12 +4,10 @@ $query = $db->prepare("DELETE FROM users WHERE extID = ''");
 $query->execute();
 $query = $db->prepare("DELETE FROM songs WHERE download = ''");
 $query->execute();
-echo "Deleted invalid users and songs.<br>";
 ob_flush();
 flush();
 $query = $db->prepare("UPDATE levels SET password = 0 WHERE password = 2");
 $query->execute();
-echo "Fixed reuploaded levels with invalid passwords.<br>";
 /*$query = $db->prepare("SELECT accountID, userName, registerDate FROM accounts");
 $query->execute();
 $result = $query->fetchAll();
@@ -44,7 +42,7 @@ foreach($tables as &$table){
 	ob_flush();
 	flush();
 }*/
-echo "Finished<hr>";
+echo "1";
 ob_flush();
 flush();
 ?>
