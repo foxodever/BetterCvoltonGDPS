@@ -36,7 +36,7 @@ if($type == "top" OR $type == "creators" OR $type == "relative"){
 		$query = "SELECT * FROM users WHERE isBanned = '0' AND gameVersion $sign AND stars > 0 ORDER BY stars DESC LIMIT 100";
 	}
 	if($type == "creators"){
-		$query = "SELECT * FROM users WHERE isCreatorBanned = '0' ORDER BY creatorPoints DESC LIMIT 100";
+		$query = "SELECT * FROM users WHERE isCreatorBanned = '0' AND creatorPoints > 0 ORDER BY creatorPoints DESC LIMIT 100";
 	}
 	if($type == "relative"){
 		$query = "SELECT * FROM users WHERE extID = :accountID";
@@ -137,7 +137,11 @@ if($type == "friends"){
 	}
 }
 if($lbstring == ""){
-	exit("-1");
+	if($date == "01-04"){
+		$lbstring .= "1:No players in top:2:0:13:0:17:0:6:10:9:9:10:9:11:8:14:1:15:3:16:sadsadod4:3:0:8:0:4:0:7:sadsadod4:46:0|";
+	}else{
+		$lbstring .= "1:No players in top:2:0:13:0:17:0:6:1:9:1:10:1:11:1:14:1:15:1:16:sadsadod4:3:0:8:0:4:0:7:sadsadod4:46:0|";
+	}
 }
 $lbstring = substr($lbstring, 0, -1);
 echo $lbstring;
