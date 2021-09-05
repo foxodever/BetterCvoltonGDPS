@@ -12,6 +12,7 @@ Required version of PHP: 5.4+ (tested up to 7.3.11)
 4) Better timestamps
 5) Bot attack blocking
 6) Better cron
+7) Song uploading by file
 
 ### Setup
 1) Upload the files on a webserver
