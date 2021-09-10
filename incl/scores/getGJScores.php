@@ -9,7 +9,6 @@ $stars = 0;
 $count = 0;
 $xi = 0;
 $lbstring = "";
-$date = date("d-m");
 if(empty($_POST["gameVersion"])){
 	$sign = "< 20 AND gameVersion <> 0";
 }else{
@@ -98,11 +97,7 @@ if($type == "top" OR $type == "creators" OR $type == "relative"){
 			$extid = $user["extID"];
 		}
 		$xi++;
-		if($date == "01-04"){
-			$lbstring .= "1:sakujes:2:".$user["userID"].":13:999:17:999:6:".$xi.":9:9:10:9:11:8:14:1:15:3:16:".$extid.":3:999:8:99999:4:999:7:".$extid.":46:99999|";
-		}else{
-			$lbstring .= "1:".$user["userName"].":2:".$user["userID"].":13:".$user["coins"].":17:".$user["userCoins"].":6:".$xi.":9:".$user["icon"].":10:".$user["color1"].":11:".$user["color2"].":14:".$user["iconType"].":15:".$user["special"].":16:".$extid.":3:".$user["stars"].":8:".round($user["creatorPoints"],0,PHP_ROUND_HALF_DOWN).":4:".$user["demons"].":7:".$extid.":46:".$user["diamonds"]."|";
-		}
+		$lbstring .= "1:".$user["userName"].":2:".$user["userID"].":13:".$user["coins"].":17:".$user["userCoins"].":6:".$xi.":9:".$user["icon"].":10:".$user["color1"].":11:".$user["color2"].":14:".$user["iconType"].":15:".$user["special"].":16:".$extid.":3:".$user["stars"].":8:".round($user["creatorPoints"],0,PHP_ROUND_HALF_DOWN).":4:".$user["demons"].":7:".$extid.":46:".$user["diamonds"]."|";
 	}
 }
 if($type == "friends"){
@@ -129,19 +124,12 @@ if($type == "friends"){
 			$extid = 0;
 		}
 		$xi++;
-		if($date == "01-04"){
-			$lbstring .= "1:sakujes:2:".$user["userID"].":13:999:17:999:6:".$xi.":9:9:10:9:11:8:14:1:15:3:16:".$extid.":3:999:8:99999:4:999:7:".$extid.":46:99999|";
-		}else{
-			$lbstring .= "1:".$user["userName"].":2:".$user["userID"].":13:".$user["coins"].":17:".$user["userCoins"].":6:".$xi.":9:".$user["icon"].":10:".$user["color1"].":11:".$user["color2"].":14:".$user["iconType"].":15:".$user["special"].":16:".$extid.":3:".$user["stars"].":8:".round($user["creatorPoints"],0,PHP_ROUND_HALF_DOWN).":4:".$user["demons"].":7:".$extid.":46:".$user["diamonds"]."|";
-		}
+		$lbstring .= "1:".$user["userName"].":2:".$user["userID"].":13:".$user["coins"].":17:".$user["userCoins"].":6:".$xi.":9:".$user["icon"].":10:".$user["color1"].":11:".$user["color2"].":14:".$user["iconType"].":15:".$user["special"].":16:".$extid.":3:".$user["stars"].":8:".round($user["creatorPoints"],0,PHP_ROUND_HALF_DOWN).":4:".$user["demons"].":7:".$extid.":46:".$user["diamonds"]."|";
 	}
 }
 if($lbstring == ""){
-	if($date == "01-04"){
-		$lbstring .= "1:No players in top:2:0:13:0:17:0:6:10:9:9:10:9:11:8:14:1:15:3:16:sadsadod4:3:0:8:0:4:0:7:sadsadod4:46:0|";
-	}else{
-		$lbstring .= "1:No players in top:2:0:13:0:17:0:6:1:9:1:10:1:11:1:14:1:15:1:16:sadsadod4:3:0:8:0:4:0:7:sadsadod4:46:0|";
-	}
+	$lbstring .= "1:No players in top:2:0:13:0:17:0:6:1:9:1:10:1:11:1:14:1:15:1:16:sadsadod4:3:0:8:0:4:0:7:sadsadod4:46:0|";
+	
 }
 $lbstring = substr($lbstring, 0, -1);
 echo $lbstring;
