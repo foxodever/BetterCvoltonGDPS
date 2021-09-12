@@ -121,6 +121,16 @@ if(!empty($_POST["accountID"]) AND $_POST["accountID"]!="0"){
 }else{
 	$register = 0;
 }
+
+$ip = $gs->getIP();
+
+$query = $db->prepare("SELECT * FROM users WHERE ip = :ip AND lastPlayed + 3600 > :time");
+$query->execute([':ip' => $ip, ':time' => time()]);
+if ($query->rowCount() > 3) {
+	exit("-1");
+}
+
+
 $userID = $gs->getUserID($id, $userName);
 $uploadDate = time();
 $hostname = $gs->getIP();
