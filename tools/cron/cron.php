@@ -84,12 +84,30 @@
           data: { a:a }
         }).done(function(result) {
             if(result == 1) {
-                $("#5").html(old + "<br />Cleaned!<hr>Cron ended!");
+                $("#5").html(old + "<br />Cleaned!<hr>");
+                lvls();
             } else {
                 $("#5").html(result + "<hr>");
+                lvls();
+            }
+        });
+      }
+    function lvls() {
+        $("#6").html("Fixing levels...");
+        var old = $("#6").html();
+        var a = "1";
+        $.ajax({
+          type: "POST",
+          url: "fixlevels.php",
+          data: { a:a }
+        }).done(function(result) {
+            if(result == 1) {
+                $("#6").html(old + "<br />Levels fixed!<hr>Cron ended!");
+            } else {
+                $("#6").html(result + "<hr>");
             }
         });
       }
 </script>
 <p id="1"><button onclick="autoban()">Start cron</button></p>
-<p id="2"></p><p id="3"></p><p id="4"></p><p id="5"></p>
+<p id="2"></p><p id="3"></p><p id="4"></p><p id="5"><p id="6"></p>
