@@ -83,4 +83,6 @@ foreach($result as $a){
 
 $query = $db->prepare("UPDATE users SET isBanned = 1 WHERE stars > $stars OR demons > $demons OR coins > $coins OR userCoins > $pc");
 $query->execute();
+$query = $db->prepare("UPDATE users SET isBanned = 1 WHERE stars < 0 OR coins < 0 OR userCoins < 0");
+$query->execute();
 ?>
