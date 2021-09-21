@@ -35,7 +35,7 @@ if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $mail->SMTPAuth = true;
         $mail->Username = $mail_server;
         $mail->Password = $mail_server_password; 
-        $mail->SMTPSecure = 'ssl';
+        $mail->SMTPSecure = $mail_type;
         $mail->Port = $smtp_port;
 
         $mail->setFrom($mail_server);
