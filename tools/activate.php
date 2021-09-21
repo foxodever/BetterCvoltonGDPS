@@ -46,7 +46,6 @@ if($tk != "") {
 $cap = htmlspecialchars($_POST["cap"]);
 
 if($cap == "") {
-
 } else {
     if($cap == $captcha) {
         $tk = $_SESSION["tk"];
