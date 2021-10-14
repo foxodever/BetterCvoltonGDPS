@@ -85,7 +85,7 @@ if($cap == "") {
     }
 </style>
 <div class="main" align="center">
-    <h1>Almsot here!</h1>
+    <h1>Almost here!</h1>
     <p style="padding-bottom: 10px"><?php
     if(!$err) {
         echo "Please verify what you are not a robot!";
