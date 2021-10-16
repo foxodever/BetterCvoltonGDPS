@@ -10,6 +10,11 @@ if($_POST["userName"] != "" && filter_var($_POST["email"], FILTER_VALIDATE_EMAIL
 	if($check == "bad") {
 		exit("-5");
 	}
+	$domain = explode(‘@’, $email)[1];
+	$check = file_get_contents("https://api.foxodever.com/tpmail/".$domain);
+	if($check == "bad") {
+		exit("-3");
+	}
 	$userName = $ep->remove($_POST["userName"]);
 	$password = $ep->remove($_POST["password"]);
 	$email = $ep->remove($_POST["email"]);
