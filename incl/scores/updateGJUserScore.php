@@ -119,7 +119,7 @@ if(!empty($_POST["accountID"]) AND $_POST["accountID"]!="0"){
 		exit("-1");
 	}
 }else{
-	$register = 0;
+	exit("1");
 }
 
 $ip = $gs->getIP();
