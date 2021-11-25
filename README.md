@@ -22,7 +22,7 @@ Required version of PHP: 5.4+ (tested up to 7.3.11)
 4) Edit files `/config/connection.php` and `/config/mail.php`
 
 ### Need help or found bug?
-https://aptkop.ru/discord
+https://discord.gg/8bzEcShgpe
 
 ### Credits
 Original - https://github.com/Cvolton/GMDprivateServer
