@@ -14,12 +14,14 @@ Required version of PHP: 5.4+ (tested up to 7.3.11)
 6) Better cron
 7) Song uploading by file
 8) Common password filter
+9) Temp mail filter
+10) 3 types of captcha (Classic, hCaptcha, reCaptcha)
 
 ### Setup
 1) Upload the files on a webserver
 2) Import database.sql into a MySQL/MariaDB database
 3) Edit the links in GeometryDash.exe (some are base64 encoded since 2.1, remember that)
-4) Edit files `/config/connection.php` and `/config/mail.php`
+4) Edit files `/config/connection.php` and `/config/mail.php` and `/config/security.php`
 
 ### Need help or found bug?
 https://discord.gg/8bzEcShgpe
