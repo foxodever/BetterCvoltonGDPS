@@ -21,7 +21,7 @@ Enter your account email<br>
 <?php
 include "../incl/lib/connection.php";
 include "../incl/lib/mail.php";
-$email = $_POST["email"];
+$email = htmlspecialchars($_POST["email"]);
 $cv = 0;
 if($captchaType == 1) {
     $captcha = $_SESSION["captcha"];
