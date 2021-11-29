@@ -83,6 +83,53 @@ if($cap == "" && $captchaType == 1) {
             exit;
         }
     }
+    function getIPAddress() {  
+        if($_SERVER['HTTP_X_FORWARDED_FOR']) {
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            $ip = $_SERVER["REMOTE_ADDR"];
+        }
+          return $ip;  
+     }  
+    if($captchaType == 3) {
+        $url = 'https://www.google.com/recaptcha/api/siteverify';
+        $params = [
+            'secret' => $recaptcha_secret, // Секретный ключ
+            'response' => $_POST["g-recaptcha-response"], // Токин
+            'remoteip' => getIPAddress(), // IP-адрес пользователя
+        ];
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        if(json_decode($response, true)["success"] == "1") {
+            $tk = $_SESSION["tk"];
+            $query = $db->prepare("SELECT userName FROM register WHERE token = :tk");
+            $query->execute([':tk' => $tk]);
+            $userName = $query->fetchColumn();
+            $query = $db->prepare("SELECT password FROM register WHERE token = :tk");
+            $query->execute([':tk' => $tk]);
+            $password = $query->fetchColumn();
+            $query = $db->prepare("SELECT email FROM register WHERE token = :tk");
+            $query->execute([':tk' => $tk]);
+            $email = $query->fetchColumn();
+            $query = $db->prepare("SELECT registerDate FROM register WHERE token = :tk");
+            $query->execute([':tk' => $tk]);
+            $registerDate = $query->fetchColumn();
+            $query = $db->prepare("INSERT INTO accounts (userName, password, registerDate, email) VALUES (:userName, :password, :registerDate, :email)");
+            $query->execute([':userName' => $userName, ':password' => $password, ':email' => $email, ':registerDate' => $registerDate]);
+            $query = $db->prepare("DELETE FROM register WHERE token = :tk");
+            $query->execute([':tk' => $tk]);
+            success();
+        } else {
+            if($_POST) {
+                $err = "Captcha failed";
+            }
+        }
+    }
     if($cap == $captcha && $captchaType == 1) {
         $tk = $_SESSION["tk"];
         $query = $db->prepare("SELECT userName FROM register WHERE token = :tk");
@@ -135,7 +182,7 @@ if($cap == "" && $captchaType == 1) {
     }
 </style>
 <div class="main" align="center">
-    <h1>Almsot here!</h1>
+    <h1>Almost here!</h1>
     <p style="padding-bottom: 10px"><?php
     if(!$err) {
         echo "Please verify what you are not a robot!";
@@ -152,12 +199,20 @@ if($cap == "" && $captchaType == 1) {
         <input type="submit" value="verify" />
     </form>
     <?php
-    } else {
+    } else if($captchaType == 2) {
         ?>
         <form action="activate.php?token=<?=$tk?>" method="post">
             <div class="h-captcha" data-sitekey="<?=$hcaptcha_key?>"></div><br />
             <input type="submit" value="verify" />
         </form>
+        <?php
+    } else {
+        ?>
+        <form action="activate.php?token=<?=$tk?>" method="post">
+            <div class="g-recaptcha" data-sitekey="<?=$recaptcha_key?>"></div>
+            <input type="submit" value="verify" />
+        </form>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
         <?php
     }
     ?>
