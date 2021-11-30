@@ -5,6 +5,11 @@ Supported version of Geometry Dash: 1.0 - 2.11 (so any version of Geometry Dash 
 
 Required version of PHP: 5.4+ (tested up to 7.3.11)
 
+### Info
+Soon this core gonna be deprecated.
+It will happen when i will create my own core
+See development: (Soon)
+
 ### What this version have?
 1) SMTP server! (Email verifying)
 2) Password reseting if you forgot it
