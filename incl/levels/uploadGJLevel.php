@@ -122,6 +122,13 @@ if(!empty($_POST["accountID"]) AND $_POST["accountID"]!="0"){
 	if($gjpresult != 1){
 		exit("-1");
 	}
+} else {
+	exit("-1");
+}
+$query = $db->prepare("SELECT * FROM accounts WHERE registerDate + 180 > :time AND accountID = :id");
+$query->execute([':time' => time(), ':id' => $_POST["accountID"]]);
+if($query->fetchColumn() != 0){
+	exit("-1");
 }
 $hostname = $gs->getIP();
 $userID = $mainLib->getUserID($id, $userName);
