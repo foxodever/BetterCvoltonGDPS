@@ -99,6 +99,9 @@ if(!empty($_POST["diamonds"])){
 }else{
 	$diamonds = 0;
 }
+if($stars < 0 || $demons < 0 || $diamonds < 0 || $coins < 0 || $userCoins < 0) {
+	exit("-1");
+}
 //continuing the accounts system
 $accountID = "";
 if(empty($_POST["udid"]) AND empty($_POST["accountID"])){
