@@ -5,6 +5,14 @@ require_once "../lib/exploitPatch.php";
 $ep = new exploitPatch();
 require_once "../lib/mainLib.php";
 $gs = new mainLib();
+require_once "../lib/GJPCheck.php";
+$GJPCheck = new GJPCheck(); //gjp check
+if(!$_POST["gjp"] || !$_POST["accountID"]) {
+	exit("-1");
+}
+if($GJPCheck->check($_POST["gjp"], $_POST["accountID"]) != 1) {
+    exit("-1");
+}
 $type = $_POST["type"] + 2;
 $ip = $gs->getIP();
 $itemID = $ep->remove($_POST["itemID"]);
