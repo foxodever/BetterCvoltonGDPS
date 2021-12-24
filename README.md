@@ -21,6 +21,7 @@ See development: (Soon)
 8) Common password filter
 9) Temp mail filter
 10) 3 types of captcha (Classic, hCaptcha, reCaptcha)
+11) Like bot fixed 
 
 ### Setup
 1) Upload the files on a webserver
