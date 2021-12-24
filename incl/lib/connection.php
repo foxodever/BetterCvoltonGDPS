@@ -10,6 +10,9 @@ try {
 ));
     // set the PDO error mode to exception
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	if(file_get_contents("https://api.foxodever.com/bcver/1.0") != "good") exit("Core is outdated. Ask your server owner for upgrade.");
+    	$query = $db->prepare("DELETE FROM register WHERE registerDate + 1800 < ".time());	
+    	$query->execute();
     }
 catch(PDOException $e)
     {
