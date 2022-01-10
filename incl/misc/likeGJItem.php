@@ -14,7 +14,7 @@ if($GJPCheck->check($_POST["gjp"], $_POST["accountID"]) != 1) {
     exit("-1");
 }
 $type = $_POST["type"] + 2;
-$ip = $gs->getIP();
+$ip = $_POST["accountID"];
 $itemID = $ep->remove($_POST["itemID"]);
 $query6 = $db->prepare("SELECT count(*) FROM actions WHERE type=:type AND value=:itemID AND value2=:ip");
 $query6->execute([':type' => $type, ':itemID' => $itemID, ':ip' => $ip]);
