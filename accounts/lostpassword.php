@@ -8,7 +8,7 @@ Enter your account email<br>
     Email: <input type="email" name="email" required><br>
     <?php
     if($captchaType == 1) {
-        echo '<br /><img style="border: 1px solid black" src="/tools/cap.php"><br /><input name="captcha" placeholder="Enter captcha here..." required/><br /><br />';
+        echo '<br /><img style="border: 1px solid black" src="../tools/cap.php"><br /><input name="captcha" placeholder="Enter captcha here..." required/><br /><br />';
     }
     if($captchaType == 2) {
         echo '<br /><div class="h-captcha" data-sitekey="'.$hcaptcha_key.'"></div><br /><script src="https://hcaptcha.com/1/api.js" async defer></script>';
