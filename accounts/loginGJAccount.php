@@ -34,6 +34,11 @@ if ($pass == 1) { //success
 	$query2->execute([':id' => $id]);
 	if ($query2->rowCount() > 0) {
 		$userID = $query2->fetchColumn();
+		$query3 = $db->prepare("SELECT isBanned FROM users WHERE extID = :id");
+		$query3->execute([':id' => $id]);
+		if($query3->fetchColumn()) {
+			exit("-12");
+		}
 	} else {
 		$query = $db->prepare("INSERT INTO users (isRegistered, extID, userName)
 		VALUES (1, :id, :userName)");
