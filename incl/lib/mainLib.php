@@ -432,6 +432,7 @@ class mainLib {
 		$headr[] = 'Authorization: Bot '.$bottoken;
 		curl_setopt($crl, CURLOPT_HTTPHEADER,$headr);
 		curl_setopt($crl, CURLOPT_RETURNTRANSFER, 1); 
+		curl_setopt($crl, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
 		$response = curl_exec($crl);
 		curl_close($crl);
 		$responseDecode = json_decode($response, true);
@@ -465,6 +466,7 @@ class mainLib {
 		$headr[] = 'Authorization: Bot '.$bottoken;
 		curl_setopt($crl, CURLOPT_HTTPHEADER,$headr);
 		curl_setopt($crl, CURLOPT_RETURNTRANSFER, 1); 
+		curl_setopt($crl, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
 		$response = curl_exec($crl);
 		curl_close($crl);
 		$userinfo = json_decode($response, true);
@@ -746,6 +748,7 @@ class mainLib {
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 		curl_setopt($ch, CURLOPT_HEADER, TRUE);
 		curl_setopt($ch, CURLOPT_NOBODY, TRUE);
+		curl_setopt($ch, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
 		$data = curl_exec($ch);
 		$size = curl_getinfo($ch, CURLINFO_CONTENT_LENGTH_DOWNLOAD);
 		curl_close($ch);
