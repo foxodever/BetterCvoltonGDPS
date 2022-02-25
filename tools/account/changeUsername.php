@@ -2,21 +2,25 @@
 include "../../incl/lib/connection.php";
 require "../../incl/lib/generatePass.php";
 require_once "../../incl/lib/exploitPatch.php";
-$ep = new exploitPatch();
 //here im getting all the data
-$userName = $ep->remove($_POST["userName"]);
-$newusr = $ep->remove($_POST["newusr"]);
-$password = $ep->remove($_POST["password"]);
+$userName = ExploitPatch::remove($_POST["userName"]);
+$newusr = ExploitPatch::remove($_POST["newusr"]);
+$password = ExploitPatch::remove($_POST["password"]);
 if($userName != "" AND $newusr != "" AND $password != ""){
-	$generatePass = new generatePass();
-	$pass = $generatePass->isValidUsrname($userName, $password);
+	$pass = GeneratePass::isValidUsrname($userName, $password);
 	if ($pass == 1) {
-		$query = $db->prepare("UPDATE accounts SET username=:newusr WHERE userName=:userName");	
-		$query->execute([':newusr' => $newusr, ':userName' => $userName]);
-		if($query->rowCount()==0){
-			echo "Invalid password or nonexistant account. <a href='changeUsername.php'>Try again</a>";
-		}else{
-			echo "Username changed. <a href='accountManagement.php'>Go back to account management</a>";
+		$query = $db->prepare("SELECT * FROM accounts WHERE userName=:userName");	
+		$query->execute([':userName' => $newusr]);
+		if($query->rowCount()>0) {
+			echo "Username is aleready taken";
+		} else {
+			$query = $db->prepare("UPDATE accounts SET username=:newusr WHERE userName=:userName");	
+			$query->execute([':newusr' => $newusr, ':userName' => $userName]);
+			if($query->rowCount()==0){
+				echo "Invalid password or nonexistant account. <a href='changeUsername.php'>Try again</a>";
+			}else{
+				echo "Username changed. <a href='accountManagement.php'>Go back to account management</a>";
+			}
 		}
 	}else{
 		echo "Invalid password or nonexistant account. <a href='changeUsername.php'>Try again</a>";
