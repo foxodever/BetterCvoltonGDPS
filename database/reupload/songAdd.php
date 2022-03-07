@@ -1,3 +1,3 @@
 <?php
-header("../../../tools/songs/upload.php");
+header("Location: ../../../tools/songs/upload.php");
 ?>
