@@ -6,18 +6,10 @@ require_once "../incl/lib/exploitPatch.php";
 $ep = new exploitPatch();
 if($_POST["userName"] != "" && filter_var($_POST["email"], FILTER_VALIDATE_EMAIL) && $_POST["password"] != ""){
 	//here im getting all the data
-	$check = file_get_contents("https://api.foxodever.com/password/".md5($_POST["password"]));
-	if($check == "bad") {
-		exit("-5");
-	}
 	$userName = $ep->remove($_POST["userName"]);
 	$password = $ep->remove($_POST["password"]);
 	$email = $ep->remove($_POST["email"]);
 	$domain = explode('@', $email)[1];
-	$check = file_get_contents("https://api.foxodever.com/tpmail/".$domain);
-	if($check == "bad") {
-		exit("-3");
-	}
 	$secret = "";
 	//checking if name is taken
 	$query2 = $db->prepare("SELECT count(*) FROM accounts WHERE userName LIKE :userName");
