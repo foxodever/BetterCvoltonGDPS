@@ -3,6 +3,7 @@ include "../incl/lib/connection.php";
 include "../config/security.php";
 require_once "../incl/lib/mainLib.php";
 $gs = new mainLib();
+session_start();
 function invalid() {
     exit("-1");
 }
