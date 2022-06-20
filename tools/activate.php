@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL);
 include "../incl/lib/connection.php";
 include "../config/security.php";
 require_once "../incl/lib/mainLib.php";
