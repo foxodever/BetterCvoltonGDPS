@@ -1,3 +1,8 @@
+# IMPORTANT
+I'm sorry to say this, but core is fully deprecated and will no longer get updates. 
+If you are interested in new version of it, please contact me via telegram
+https://t.me/foxodever
+
 # BetterCvoltonGDPS
 Better Version of Cvolton's GMDprivateServer
 
